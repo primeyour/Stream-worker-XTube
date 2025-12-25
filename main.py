@@ -47,7 +47,7 @@ class Config:
     
     # --- NEW: Admin and Domain Config ---
     ADMIN_IDS = list(int(admin_id) for admin_id in os.environ.get("ADMIN_IDS", "6644681404").split())
-    PROTECTED_DOMAIN = os.environ.get("PROTECTED_DOMAIN", "https://www.keralacaptain.shop/").rstrip('/') + '/'
+    PROTECTED_DOMAIN = os.environ.get("PROTECTED_DOMAIN", "https://xtubepro.xo.je").rstrip('/') + '/'
     
     MONGO_URI = os.environ.get("MONGO_URI", "")
     LOG_CHANNEL_ID = int(os.environ.get("LOG_CHANNEL_ID", 0))
@@ -115,26 +115,17 @@ def get_readable_time(seconds: int) -> str:
     seconds = int(seconds)
     result += f"{seconds}s"
     return result
-
-# -------------------------------------------------------------------------------- #
-# DATABASE OPERATIONS
-# -------------------------------------------------------------------------------- #
-
 # ================================================================================ #
 # DATABASE OPERATIONS (Kept original + New Settings)
 # ================================================================================ #
 
 db_client = AsyncIOMotorClient(Config.MONGO_URI)
-db = db_client['KeralaCaptainBotDB']
-
-# Primary collection for all normal operations (Kept as is)
-media_collection = db['media']
-# Backup collection (Kept as is)
-media_backup_collection = db['media_backup']
-# User conversations (Kept for new settings panel)
-user_conversations_col = db['conversations']
-# --- NEW: Collection for bot settings ---
-settings_collection = db['settings']
+db = db_client["BotCDatabase"]
+media_collection = db["media"]
+media_backup_collection = db["media_backup"]
+user_conversations_col = db["conversations"]
+settings_collection = db["settings"]
+libraries_collection = db["libraries"]
 
 
 # --- Database Functions (Kept original read/write functions for streaming logic) ---
