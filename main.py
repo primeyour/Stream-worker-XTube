@@ -762,10 +762,22 @@ if __name__ == "__main__":
         CURRENT_PROTECTED_DOMAIN = await get_protected_domain()
         LOGGER.info(f"Domain loaded: {CURRENT_PROTECTED_DOMAIN}")
         
-        # DB Indexing (Kept)
-        await media_collection.create_index("tmdb_id", unique=True)
-        await media_collection.create_index("wp_post_id", unique=True)
-        LOGGER.info("DB indexes ensured.")
+        # --- FIX: Database Index Cleanup ---
+        # This section removes the old "tmdb_id" rule that caused the DuplicateKeyError.
+        # Since this is a generic video bot, we do not need unique IDs from TMDB.
+        try:
+            await media_collection.drop_index("tmdb_id_1")
+            LOGGER.info("Successfully removed the old 'tmdb_id' index. Error fixed.")
+        except Exception:
+            pass # Index didn't exist, which is fine.
+
+        try:
+            await media_collection.drop_index("wp_post_id_1")
+        except Exception:
+            pass
+            
+        LOGGER.info("DB indexes checked.")
+        # -----------------------------------
         
         try:
             await main_bot.start()
