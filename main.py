@@ -24,7 +24,7 @@ from pyrogram import raw
 from pyrogram.raw.types import InputPhotoFileLocation, InputDocumentFileLocation
 
 # -------------------------------------------------------------------------------- #
-# KeralaCaptain Bot - Pure Streaming Engine V4.1 (Cleaned)                         #
+# XTubePro Bot - Pure Streaming Engine V4.1 (Cleaned)                         #
 # -------------------------------------------------------------------------------- #
 
 # Load configurations from .env file
@@ -387,7 +387,7 @@ routes = web.RouteTableDef()
 
 @routes.get("/", allow_head=True)
 async def root_route_handler(request):
-    return web.Response(text=f"Welcome to KeralaCaptain's Streaming Service!", content_type='text/html')
+    return web.Response(text=f"Welcome to XTubePro's Streaming Service!", content_type='text/html')
 
 @routes.get("/health")
 async def health_handler(request):
@@ -517,7 +517,7 @@ async def web_server():
 # BOT & CLIENT INITIALIZATION (CLEANED)
 # -------------------------------------------------------------------------------- #
 
-main_bot = Client("KeralaCaptainBot", api_id=Config.API_ID, api_hash=Config.API_HASH, bot_token=Config.BOT_TOKEN)
+main_bot = Client("XTubeProBot", api_id=Config.API_ID, api_hash=Config.API_HASH, bot_token=Config.BOT_TOKEN)
 # REMOVED: backup_bot (no longer needed)
 
 class TokenParser:
@@ -657,7 +657,7 @@ async def set_domain_callback(client, cb: CallbackQuery):
     await cb.message.edit_text(
         "**✏️ Set New Domain**\n\n"
         "Please send the new domain you want to protect.\n\n"
-        "Example: `https://keralacaptain.in` or `keralacaptain.in`",
+        "Example: `https://XTubePro.in` or `XTubePro.in`",
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("❌ Cancel", callback_data="admin_cancel_conv")]])
     )
 
@@ -719,7 +719,7 @@ async def text_message_handler(client, message: Message):
         
         # Validate domain (simple check)
         if "." not in new_domain or " " in new_domain:
-            return await message.reply_text("Invalid format. Please send a valid domain like `keralacaptain.in`.")
+            return await message.reply_text("Invalid format. Please send a valid domain like `XTubePro.site`.")
         
         try:
             status_msg = await message.reply_text("Saving...")
